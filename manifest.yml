@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: java-api
+  name: java-api
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: java-api
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: java-api
+    spec:
+      containers:
+      - image: docker.io/bbachin1/java-api
+        name: java-api
+        imagePullPolicy: Always
+        resources: {}
+        ports:
+          - containerPort: 8080 
+status: {}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: java-api
+  labels:
+    run: java-api
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+  selector:
+    app: java-api
+  type: NodePort
